@@ -134,7 +134,7 @@ def bgr2ycbcr(img, only_y=True):
         float, [0, 1]
     '''
     in_img_type = img.dtype
-    img.astype(np.float32)
+    img = img.astype(np.float32)
     if in_img_type != np.uint8:
         img *= 255.
     # convert

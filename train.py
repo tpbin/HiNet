@@ -185,13 +185,13 @@ try:
                     secret_rev = iwt(secret_rev)
 
                     secret_rev = secret_rev.cpu().numpy().squeeze() * 255
-                    np.clip(secret_rev, 0, 255)
+                    secret_rev = np.clip(secret_rev, 0, 255)
                     secret = secret.cpu().numpy().squeeze() * 255
-                    np.clip(secret, 0, 255)
+                    secret = np.clip(secret, 0, 255)
                     cover = cover.cpu().numpy().squeeze() * 255
-                    np.clip(cover, 0, 255)
+                    cover = np.clip(cover, 0, 255)
                     steg = steg.cpu().numpy().squeeze() * 255
-                    np.clip(steg, 0, 255)
+                    steg = np.clip(steg, 0, 255)
                     psnr_temp = computePSNR(secret_rev, secret)
                     psnr_s.append(psnr_temp)
                     psnr_temp_c = computePSNR(cover, steg)
