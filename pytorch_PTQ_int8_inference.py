@@ -11,9 +11,10 @@ def run_int8_infer():
     # 1. 모델 생성 및 qconfig 지정 (반드시 PTQ 저장 때와 동일하게)
     model_fp32 = Model()
     model_fp32.qconfig = torch.quantization.get_default_qconfig('fbgemm')
-    
-    # 2. convert (구조만 int8로 바꿈, 파라미터는 아직 X)
-    model_int8 = torch.quantization.convert(model_fp32.eval(), inplace=False)
+
+    # 2. prepare 단계를 거쳐 int8 구조로 변환 (파라미터는 아직 로드 전)
+    model_prepared = torch.quantization.prepare(model_fp32.eval(), inplace=False)
+    model_int8 = torch.quantization.convert(model_prepared, inplace=False)
     model_int8.to(device)
 
     # 3. INT8 state_dict만 로드 (파라미터 로딩)
